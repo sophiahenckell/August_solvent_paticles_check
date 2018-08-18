@@ -2,19 +2,19 @@
 
 #ACHTUNG! LOG SCALE MUSS für den submit EINGESTELLT SEIN!!!!
 RUN_ID=1
-TASKS=250
+TASKS=5
 BROWNIAN_TIMESTEP=0.01
 SAVING_TIMESTEP=0.001
 SWELLING_RATE=0
 SIMULATION_TIME=2000
-PACKING_FRACTION=0.29
+PACKING_FRACTION=0.05
 PARTICLE_NUMBER=1372
 ASPECT_RATIO=0
 RADIUS=1
  
 
-NAME="SYSTEM4${RUN_ID}T${SIMULATION_TIME}N${PARTICLE_NUMBER}k${ASPECT_RATIO//.}Phi${PACKING_FRACTION//.}"
-DATA="/data/scc/sophia/PaperSystems/SYSTEM4/${RUN_ID}-n${PARTICLE_NUMBER}-t${SIMULATION_TIME}-phi${PACKING_FRACTION}-k${ASPECT_RATIO}-tb${BROWNIAN_TIMESTEP}-ts${SAVING_TIMESTEP}-r${RADIUS}"
+NAME="FREE2Particle${RUN_ID}T${SIMULATION_TIME}N${PARTICLE_NUMBER}k${ASPECT_RATIO//.}Phi${PACKING_FRACTION//.}"
+DATA="/data/scc/sophia/FreeParticleSystemsRadius1/FreeParticle_FCCEquilibration/${RUN_ID}-n${PARTICLE_NUMBER}-t${SIMULATION_TIME}-phi${PACKING_FRACTION}-k${ASPECT_RATIO}-tb${BROWNIAN_TIMESTEP}-ts${SAVING_TIMESTEP}-r${RADIUS}"
 mkdir -p $DATA/logs
 
 TMPFILE="tmp-${RUN_ID}.sh"
@@ -31,7 +31,7 @@ cat > $TMPFILE <<- EOF
 	##$ -l h=!ramsey&!hooke&!gilbert&!pauli&!fermat&!hund&!fano&!onsager&!geiger&!huygens&!kerr&!hertz&!brown
 	##$ -l h=!scc013&!scc051
 	#$ -l h_vmem=15G   
-	#$ -l h_rt=719:00:00
+	#$ -l h_rt=100:00:00
 	##$ -notify         
 	#$ -t 1-${TASKS}
 
@@ -44,7 +44,7 @@ cat > $TMPFILE <<- EOF
 	module load cython
 	module list
 	
-	echo "Joerg Systems $JOB_ID.\$SGE_TASK_ID $DATA" >> /data/scc/sophia/globallogs/clustersubmit.log
+	echo "Free Particle FCC Equilibration radius 1 $JOB_ID.\$SGE_TASK_ID $DATA" >> /data/scc/sophia/globallogs/clustersubmit.log
 
 	cmd="python3 mw_log.py"
 	args="--path $DATA --brownian-timestep ${BROWNIAN_TIMESTEP} --saving-timestep ${SAVING_TIMESTEP} --swelling-rate ${SWELLING_RATE} --system-lifetime ${SIMULATION_TIME} --packing-fraction ${PACKING_FRACTION} --particle-number ${PARTICLE_NUMBER} --aspect-ratio ${ASPECT_RATIO} --radius ${RADIUS} --simulation_id \$SGE_TASK_ID --verbose"

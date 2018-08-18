@@ -18,8 +18,8 @@ def start(path, brownian_timestep, saving_timestep, swelling_rate, system_lifeti
     np.random.seed(simulation_id) # set seeding here so that it is easier to see
 
     ## choose system type
-    gen = EllipseBenchmarkRandom()
-    #gen = FCCLatticeGenerator()
+    #gen = EllipseBenchmarkRandom()
+    gen = FCCLatticeGenerator()
 
     ########################
     #    choose process    #
@@ -38,7 +38,7 @@ def start(path, brownian_timestep, saving_timestep, swelling_rate, system_lifeti
     #     pass
     # gen.save_to_file(config_filename)
     #
-    # sim2 = Simulation(config_filename=config_filename, output_filename=config_filename, system_lifetime=system_lifetime, brownian_timestep=brownian_timestep,  saving_timestep=saving_timestep, swelling_rate = None, packing_fraction = packing_fraction, aspect_ratio = aspect_ratio, verbose=verbose)
+    # sim2 = Simulation(config_filename=config_filename, output_filename=config_filename, system_lifetime=system_lifetime, brownian_timestep= None,  saving_timestep=saving_timestep, swelling_rate = None, packing_fraction = packing_fraction, aspect_ratio = aspect_ratio, verbose=verbose)
     # sim2.start()
     # sys.exit()
 
